@@ -1,61 +1,11 @@
-export function addItem(text) {
-  return {
-    type: 'ADD',
-    payload: text
-  };
-}
+import { createAction } from 'redux-actions';
 
-export function removeItem(id) {
-  return {
-    type: 'REMOVE',
-    payload: id
-  };
-}
-
-export function makeItemActive(id) {
-  return {
-    type: 'TO_ACTIVE',
-    payload: id
-  };
-}
-
-export function makeItemCompleted(id) {
-  return {
-    type: 'TO_COMPLETED',
-    payload: id
-  };
-}
-
-export function removeCompletedItems() {
-  return {
-    type: 'REMOVE_COMPLETED'
-  };
-}
-
-export function putItemInEditing(id) {
-  return {
-    type: 'ENTER_EDITING',
-    payload: id
-  };
-}
-
-export function removeItemFromEditing(id) {
-  return {
-    type: 'EXIT_EDITING',
-    payload: id
-  };
-}
-
-export function setItemText(id, text) {
-  return {
-    type: 'SET_TEXT',
-    payload: { id, text }
-  };
-}
-
-export function setDisplayMode(mode) {
-  return {
-    type: 'SET_DISPLAY_MODE',
-    payload: mode
-  };
-}
+export const addItem = createAction('ADD');
+export const removeItem = createAction('REMOVE');
+export const makeItemActive = createAction('TO_ACTIVE');
+export const makeItemCompleted = createAction('TO_COMPLETED');
+export const removeCompletedItems = createAction('REMOVE_COMPLETED');
+export const putItemInEditing = createAction('ENTER_EDITING');
+export const removeItemFromEditing = createAction('EXIT_EDITING');
+export const setItemText = createAction('SET_TEXT');
+export const setDisplayMode = createAction('SET_DISPLAY_MODE');

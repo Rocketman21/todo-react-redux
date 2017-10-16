@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import '../assets/App.css';
@@ -11,20 +12,32 @@ import * as listActions from '../actions/listActions.js';
 
 class App extends Component {
   render() {
+    const { 
+      addItem,
+      removeItem,
+      makeItemActive,
+      makeItemCompleted,
+      putItemInEditing,
+      removeItemFromEditing,
+      setItemText,
+      removeCompletedItems,
+      setDisplayMode
+    } = bindActionCreators(listActions, this.props.dispatch);
+
     return (
       <div className="App">
         <section className="todoapp">
-          <Header addItem={this.props.addItem}/>
+          <Header addItem={addItem}/>
           <Main 
             items={this.props.items}
             display={this.props.display}
 
-            removeItem={this.props.removeItem}
-            makeItemActive={this.props.makeItemActive}
-            makeItemCompleted={this.props.makeItemCompleted}
-            putItemInEditing={this.props.putItemInEditing}
-            removeItemFromEditing={this.props.removeItemFromEditing}
-            setItemText={this.props.setItemText}
+            removeItem={removeItem}
+            makeItemActive={makeItemActive}
+            makeItemCompleted={makeItemCompleted}
+            putItemInEditing={putItemInEditing}
+            removeItemFromEditing={removeItemFromEditing}
+            setItemText={setItemText}
           />
           {
             this.props.items.length 
@@ -33,8 +46,8 @@ class App extends Component {
                   active={this.props.active}
                   completed={this.props.completed}
 
-                  removeCompletedItems={this.props.removeCompletedItems}
-                  setDisplayMode={this.props.setDisplayMode}
+                  removeCompletedItems={removeCompletedItems}
+                  setDisplayMode={setDisplayMode}
                 /> 
               : null
           }
@@ -44,45 +57,11 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
+export default connect(
+  (state) => ({
     items: state.items,
     display: state.display,
     active: state.active,
     completed: state.completed
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addItem: (text) => {
-      dispatch(listActions.addItem(text));
-    },
-    removeItem: (id) => {
-      dispatch(listActions.removeItem(id));
-    },
-    makeItemActive: (id) => {
-      dispatch(listActions.makeItemActive(id));
-    },
-    makeItemCompleted: (id) => {
-      dispatch(listActions.makeItemCompleted(id));
-    },
-    putItemInEditing: (id) => {
-      dispatch(listActions.putItemInEditing(id));
-    },
-    removeItemFromEditing: (id) => {
-      dispatch(listActions.removeItemFromEditing(id));
-    },
-    setItemText: (id, text) => {
-      dispatch(listActions.setItemText(id, text));
-    },
-    removeCompletedItems: () => {
-      dispatch(listActions.removeCompletedItems());
-    },
-    setDisplayMode: (mode) => {
-      dispatch(listActions.setDisplayMode(mode));
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+  })
+)(App);
