@@ -19,12 +19,6 @@ class TodoItem extends PureComponent {
     }
   };
 
-  onItemToggleAll(event) {
-    for (let item of this.props.items) {
-      this.onItemToggle(event, item.id);
-    }
-  }
-
   getItemLiClassName(item) {
     let result = '';
 
