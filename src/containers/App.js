@@ -8,36 +8,21 @@ import { Header } from '../components/Header.js';
 import { Main } from '../components/Main.js';
 import { Footer } from '../components/Footer.js';
 
-import * as listActions from '../actions/listActions.js';
+import {
+  addItem,
+  removeCompletedItems,
+  setDisplayMode
+} from '../actions/listActions.js';
 
 class App extends Component {
   render() {
-    const { 
-      addItem,
-      removeItem,
-      makeItemActive,
-      makeItemCompleted,
-      putItemInEditing,
-      removeItemFromEditing,
-      setItemText,
-      removeCompletedItems,
-      setDisplayMode
-    } = bindActionCreators(listActions, this.props.dispatch);
-
     return (
       <div className="App">
         <section className="todoapp">
-          <Header addItem={addItem}/>
+          <Header addItem={this.props.addItem}/>
           <Main 
             items={this.props.items}
             display={this.props.display}
-
-            removeItem={removeItem}
-            makeItemActive={makeItemActive}
-            makeItemCompleted={makeItemCompleted}
-            putItemInEditing={putItemInEditing}
-            removeItemFromEditing={removeItemFromEditing}
-            setItemText={setItemText}
           />
           {
             this.props.items.length 
@@ -46,8 +31,8 @@ class App extends Component {
                   active={this.props.active}
                   completed={this.props.completed}
 
-                  removeCompletedItems={removeCompletedItems}
-                  setDisplayMode={setDisplayMode}
+                  removeCompletedItems={this.props.removeCompletedItems}
+                  setDisplayMode={this.props.setDisplayMode}
                 /> 
               : null
           }
@@ -57,11 +42,17 @@ class App extends Component {
   }
 }
 
-export default connect(
-  (state) => ({
-    items: state.items,
-    display: state.display,
-    active: state.active,
-    completed: state.completed
-  })
-)(App);
+const mapStateToProps = (state) => ({
+  items: state.items,
+  display: state.display,
+  active: state.active,
+  completed: state.completed
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  addItem,
+  removeCompletedItems,
+  setDisplayMode
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
