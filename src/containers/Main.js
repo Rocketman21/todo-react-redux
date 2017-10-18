@@ -1,11 +1,12 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
+import { Route, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { makeItemActive, makeItemCompleted } from '../actions/listActions.js';
 
 import TodoItem from '../containers/TodoItem';
 
-class Main extends PureComponent {
+class Main extends Component {
   onItemToggleAll(event) {
     for (let item of this.props.items) {
       if (event.target.checked) {
@@ -16,16 +17,16 @@ class Main extends PureComponent {
     }
   }
 
-  itemsToRender() {
-    switch (this.props.display) {
-      case 'active':
-        return this.props.items.filter((item) => !item.isCompleted);
-      case 'completed':
-        return this.props.items.filter((item) => item.isCompleted);
-      default:
-        return this.props.items;
-    }
-  }
+  // itemsToRender() {
+  //   switch (this.props.display) {
+  //     case 'active':
+  //       return this.props.items.filter((item) => !item.isCompleted);
+  //     case 'completed':
+  //       return this.props.items.filter((item) => item.isCompleted);
+  //     default:
+  //       return this.props.items;
+  //   }
+  // }
 
   render() {
     return (
@@ -40,7 +41,20 @@ class Main extends PureComponent {
             : null
         }
         <ul className="todo-list">
-          { this.itemsToRender().map((item, key) => <TodoItem item={item} key={key}/>) }
+          <Route exact path="/" render={(props) => (
+            this.props.items.map((item, key) => <TodoItem item={item} key={key}/>)
+          )}/>
+          <Route path="/active" render={(props) => (
+            this.props.items
+            .filter((item) => !item.isCompleted)
+            .map((item, key) => <TodoItem item={item} key={key}/>)
+          )}/>
+          <Route path="/completed" render={(props) => (
+            this.props.items
+            .filter((item) => item.isCompleted)
+            .map((item, key) => <TodoItem item={item} key={key}/>)
+          )}/>
+           {/* this.itemsToRender().map((item, key) => <TodoItem item={item} key={key}/>) */} 
         </ul>
       </section>
     );
@@ -59,4 +73,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   makeItemCompleted,
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export const Footer = (props) => {
   return (
@@ -9,6 +10,15 @@ export const Footer = (props) => {
 
       <ul className="filters">
         <li>
+          <NavLink exact to="/" activeClassName="selected">All</NavLink>
+        </li>
+        <li>
+          <NavLink to="/active" activeClassName="selected">Active</NavLink>
+        </li>
+        <li>
+          <NavLink to="/completed" activeClassName="selected">Completed</NavLink>
+        </li>
+        {/* <li>
           <a href="#/" className={props.display === 'all' ? "selected" : ""} 
             onClick={() => props.setDisplayMode('all')}>All</a>
         </li>
@@ -19,7 +29,7 @@ export const Footer = (props) => {
         <li>
           <a href="#/completed" className={props.display === 'completed' ? "selected" : ""}  
             onClick={() => props.setDisplayMode('completed')}>Completed</a>
-        </li>
+        </li> */}
       </ul>
 
       {
