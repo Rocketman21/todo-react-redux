@@ -1,45 +1,17 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Route, withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { makeItemActive, makeItemCompleted } from '../actions/listActions.js';
 
 import TodoItem from '../containers/TodoItem';
 
-class Main extends Component {
-  onItemToggleAll(event) {
-    for (let item of this.props.items) {
-      if (event.target.checked) {
-        this.props.makeItemCompleted(item.id);
-      } else {
-        this.props.makeItemActive(item.id);
-      }
-    }
-  }
-
-  // itemsToRender() {
-  //   switch (this.props.display) {
-  //     case 'active':
-  //       return this.props.items.filter((item) => !item.isCompleted);
-  //     case 'completed':
-  //       return this.props.items.filter((item) => item.isCompleted);
-  //     default:
-  //       return this.props.items;
-  //   }
-  // }
-
+class Main extends PureComponent {
   render() {
     return (
-      <section className="main">
-        {
-          this.props.items.length
-            ? (<input 
-                className="toggle-all" 
-                type="checkbox" 
-                onChange={(event) => this.onItemToggleAll(event)}
-              />)
-            : null
-        }
+      <div className="main">
+
+        {this.props.children}
+        
         <ul className="todo-list">
           <Route exact path="/" render={(props) => (
             this.props.items.map((item, key) => <TodoItem item={item} key={key}/>)
@@ -54,9 +26,8 @@ class Main extends Component {
             .filter((item) => item.isCompleted)
             .map((item, key) => <TodoItem item={item} key={key}/>)
           )}/>
-           {/* this.itemsToRender().map((item, key) => <TodoItem item={item} key={key}/>) */} 
         </ul>
-      </section>
+      </div>
     );
   }
 }
@@ -68,9 +39,9 @@ const mapStateToProps = (state) => ({
   completed: state.completed
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  makeItemActive,
-  makeItemCompleted,
-}, dispatch);
+// const mapDispatchToProps = (dispatch) => bindActionCreators({
+//   makeItemActive,
+//   makeItemCompleted,
+// }, dispatch);
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+export default withRouter(connect(mapStateToProps)(Main));

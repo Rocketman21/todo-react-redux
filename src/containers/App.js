@@ -1,43 +1,46 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import '../assets/App.css';
 
-import { Header } from '../components/Header.js';
-import Main from './Main.js';
-import { Footer } from '../components/Footer.js';
+import { Header } from '../components/Header';
+import Main from './Main';
+import Sidebar from '../components/Sidebar';
 
 import {
   addItem,
   removeCompletedItems,
-  setDisplayMode
+  setDisplayMode,
+  makeItemActive, 
+  makeItemCompleted
 } from '../actions/listActions.js';
 
-class App extends Component {
+class App extends PureComponent {
   render() {
     return (
       <div className="App">
-        <section className="todoapp">
+        <div className="todo-app">
           <Header addItem={this.props.addItem}/>
-          <Main 
-            items={this.props.items}
-            display={this.props.display}
-          />
-          {
-            this.props.items.length 
-              ? <Footer
-                  display={this.props.display}
-                  active={this.props.active}
-                  completed={this.props.completed}
+          <Main items={this.props.items} display={this.props.display}>
+            {
+              this.props.items.length 
+                ? <Sidebar
+                    items={this.props.items}
+                    display={this.props.display}
+                    active={this.props.active}
+                    completed={this.props.completed}
 
-                  removeCompletedItems={this.props.removeCompletedItems}
-                  setDisplayMode={this.props.setDisplayMode}
-                /> 
-              : null
-          }
-        </section>
+                    removeCompletedItems={this.props.removeCompletedItems}
+                    setDisplayMode={this.props.setDisplayMode}
+                    makeItemActive={this.props.makeItemActive}
+                    makeItemCompleted={this.props.makeItemCompleted}
+                  /> 
+                : null
+            }
+          </Main>
+        </div>
       </div>
     );
   }
@@ -53,7 +56,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   addItem,
   removeCompletedItems,
-  setDisplayMode
+  setDisplayMode,
+  makeItemActive,
+  makeItemCompleted
 }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

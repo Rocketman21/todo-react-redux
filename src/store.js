@@ -1,15 +1,17 @@
-import { createStore, applyMiddleware } from 'redux'; //combineReducers, applyMiddleware
+import { createStore, applyMiddleware, compose } from 'redux'; //combineReducers, applyMiddleware
+import {persistStore, autoRehydrate} from 'redux-persist';
 import logger from 'redux-logger';
 import list from './reducers/listReducer.js';
 
-export default createStore(
+const store = createStore(
   list, 
-  { 
-    items: [], 
-    lastItemID: 0, 
-    active: 0, 
-    completed: 0, 
-    display: 'all' 
-  }, 
-  applyMiddleware(logger)
+  undefined, 
+  compose(
+    applyMiddleware(logger),
+    autoRehydrate()
+  )
 );
+
+persistStore(store);
+
+export default store;

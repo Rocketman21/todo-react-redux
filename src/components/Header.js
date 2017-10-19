@@ -11,13 +11,18 @@ export const Header = (props) => {
   }
 
   return (
-    <header className="header">
-      <h1>todos</h1>
-      <input 
-        className="new-todo" 
-        placeholder="What needs to be done?" 
-        onKeyDown={(event) => onInputKeyDown(event)} 
-      />
-    </header>
+    <div>
+      <header className="todo-header">
+        <h1>TODO-REACT-REDUX</h1>
+      </header>
+      <div className="input-wrapper todo-shadow">
+        <input 
+          className="todo-input" 
+          placeholder="What needs to be done?" 
+          onKeyDown={(event) => onInputKeyDown(event)} 
+        />
+        <div className="selector-regular"></div>
+      </div>
+    </div>
   );
 }

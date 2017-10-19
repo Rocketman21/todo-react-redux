@@ -33,33 +33,31 @@ class TodoItem extends PureComponent {
       <li className={this.getItemLiClassName(this.props.item)} 
         onDoubleClick={(event) => this.props.item.isCompleted ? null : this.props.putItemInEditing(this.props.item.id)}>
 
-        <div className="view">
+        <div className="priority regular"></div>
 
-          <input 
-            className="toggle" 
-            type="checkbox" 
-            checked={this.props.item.isCompleted}
-            onChange={(event) => this.onItemToggle(event, this.props.item.id)}
-          />
+        <div 
+          className="todo-remove" 
+          onClick={(event) => this.props.removeItem(this.props.item.id)}
+        ></div>
 
-          <label>{this.props.item.text}</label>
+        <input 
+          className="toggle" 
+          type="checkbox" 
+          checked={this.props.item.isCompleted}
+          onChange={(event) => this.onItemToggle(event, this.props.item.id)}
+        />
 
-          <button 
-            className="destroy" 
-            onClick={(event) => this.props.removeItem(this.props.item.id)}
-          ></button>
-
-        </div>
+        <div className="todo-text">{this.props.item.text}</div>
 
         {
           this.props.item.isInEditing
             ? (<input 
-              className="edit" 
+              className="todo-edit"
               value={this.props.item.text}
               autoFocus
               /* Следующая строка фиксит установку курсора в конец строки при фокусе */
               onFocus={(event) => event.target.setSelectionRange(event.target.value.length, event.target.value.length)}
-              onChange={(event) => this.props.setItemText(this.props.item.id, event.target.value)}
+              onChange={(event) => this.props.setItemText({id: this.props.item.id, text: event.target.value})}
               onBlur={(event) => this.props.removeItemFromEditing(this.props.item.id)}
               onKeyDown={(event) => event.keyCode === 13 ? this.props.removeItemFromEditing(this.props.item.id) : null} 
             />)
