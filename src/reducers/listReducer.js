@@ -9,6 +9,7 @@ const listReducer = handleActions(
         {
           id: state.lastItemID + 1,
           text: action.payload,
+          priority: state.inputPriority,
           isCompleted: false,
           isInEditing: false
         } 
@@ -92,9 +93,9 @@ const listReducer = handleActions(
       };
     },
 
-    SET_DISPLAY_MODE: (state, action) => ({
+    SET_INPUT_PRIORITY: (state, action) => ({
       ...state,
-      display: action.payload
+      inputPriority: action.payload
     }),
   },
   { 
@@ -102,7 +103,7 @@ const listReducer = handleActions(
     lastItemID: 0, 
     active: 0, 
     completed: 0,
-    display: 'all' 
+    inputPriority: 'regular'
   }
 );
 

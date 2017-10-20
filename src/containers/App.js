@@ -12,7 +12,7 @@ import Sidebar from '../components/Sidebar';
 import {
   addItem,
   removeCompletedItems,
-  setDisplayMode,
+  setInputPriority,
   makeItemActive, 
   makeItemCompleted
 } from '../actions/listActions.js';
@@ -22,7 +22,12 @@ class App extends PureComponent {
     return (
       <div className="App">
         <div className="todo-app">
-          <Header addItem={this.props.addItem}/>
+          <Header 
+            inputPriority={this.props.inputPriority}
+
+            addItem={this.props.addItem} 
+            setInputPriority={this.props.setInputPriority}
+          />
           <Main items={this.props.items} display={this.props.display}>
             {
               this.props.items.length 
@@ -31,9 +36,7 @@ class App extends PureComponent {
                     display={this.props.display}
                     active={this.props.active}
                     completed={this.props.completed}
-
                     removeCompletedItems={this.props.removeCompletedItems}
-                    setDisplayMode={this.props.setDisplayMode}
                     makeItemActive={this.props.makeItemActive}
                     makeItemCompleted={this.props.makeItemCompleted}
                   /> 
@@ -48,7 +51,7 @@ class App extends PureComponent {
 
 const mapStateToProps = (state) => ({
   items: state.items,
-  display: state.display,
+  inputPriority: state.inputPriority,
   active: state.active,
   completed: state.completed
 });
@@ -56,7 +59,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   addItem,
   removeCompletedItems,
-  setDisplayMode,
+  setInputPriority,
   makeItemActive,
   makeItemCompleted
 }, dispatch);

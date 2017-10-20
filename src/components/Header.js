@@ -10,6 +10,25 @@ export const Header = (props) => {
     event.target.value = '';
   }
 
+  const swithInputPriority = () => {
+    let result = '';
+
+    switch(props.inputPriority) {
+      case 'regular':
+        result = 'important';
+        break;
+      case 'important':
+        result = 'ultra';
+        break;
+      case 'ultra':
+        result = 'regular';
+        break;
+      default:
+    }
+
+    props.setInputPriority(result);
+  }
+
   return (
     <div>
       <header className="todo-header">
@@ -21,7 +40,10 @@ export const Header = (props) => {
           placeholder="What needs to be done?" 
           onKeyDown={(event) => onInputKeyDown(event)} 
         />
-        <div className="selector-regular"></div>
+        <div 
+          className={'selector-' + props.inputPriority}
+          onClick={swithInputPriority}
+        ></div>
       </div>
     </div>
   );

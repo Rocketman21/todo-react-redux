@@ -31,9 +31,9 @@ class TodoItem extends PureComponent {
   render() {
     return (
       <li className={this.getItemLiClassName(this.props.item)} 
-        onDoubleClick={(event) => this.props.item.isCompleted ? null : this.props.putItemInEditing(this.props.item.id)}>
+        onDoubleClick={(event) => this.props.putItemInEditing(this.props.item.id)}>
 
-        <div className="priority regular"></div>
+        <div className={'priority ' + this.props.item.priority}></div>
 
         <div 
           className="todo-remove" 

@@ -12,47 +12,60 @@ class Sidebar extends PureComponent {
     }
   }
 
-  getRelativePath(to) {
+  getStatusPath(to) {
     const current = this.props.location.pathname;
     const splitedPath = current.split('/');
-    splitedPath.push(to);
 
-    return splitedPath.splice(splitedPath.length - 2, 2).join('/');
+    splitedPath[1] = to;
+    return splitedPath.join('/');
+  }
+
+  getPriorityPath(to) {
+    const current = this.props.location.pathname;
+    const splitedPath = current.split('/');
+
+    if (splitedPath[2] === to) {
+      splitedPath.splice(2, 1);
+    } else {
+      splitedPath[2] = to;
+    }
+
+    return splitedPath.join('/');
   }
 
   render () {
     return (
       <div className="todo-sidebar">
         <h6>status</h6>
-        <p>{this.props.active} items left</p>
+        <p>{this.props.active ? this.props.active + ' items left' : 'List completed!'}</p>
         <ul className="todo-menu">
           <li>
-            <NavLink exact to="/" activeClassName="active">All</NavLink>
+            <NavLink to={this.getStatusPath('all')} activeClassName="active">all</NavLink>
           </li>
           <li>
-            <NavLink to="/active" activeClassName="active">Active</NavLink>
+            <NavLink to={this.getStatusPath('active')} activeClassName="active">active</NavLink>
           </li>
           <li>
-            <NavLink to="/completed" activeClassName="active">Completed</NavLink>
+            <NavLink to={this.getStatusPath('completed')} activeClassName="active">completed</NavLink>
           </li>
         </ul>
 
         <h6>priorities</h6>
         <ul className="todo-menu">
           <li>
-            <NavLink to={this.getRelativePath('regular')} activeClassName="active">
+            <NavLink to={this.getPriorityPath('regular')} activeClassName="active">
               <div className="priority regular"></div>
               regular
             </NavLink>
           </li>
           <li>
-            <NavLink to={this.getRelativePath('important')} activeClassName="active">
+            <NavLink to={this.getPriorityPath('important')} activeClassName="active">
               <div className="priority important"></div>
               important
             </NavLink>
           </li>
           <li>
-            <NavLink to={this.getRelativePath('ultra')} activeClassName="active">
+            <NavLink to={this.getPriorityPath('ultra')} activeClassName="active">
               <div className="priority ultra"></div>
               ultra
             </NavLink>

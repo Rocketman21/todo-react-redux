@@ -8,4 +8,4 @@ export const removeCompletedItems = createAction('REMOVE_COMPLETED');
 export const putItemInEditing = createAction('ENTER_EDITING');
 export const removeItemFromEditing = createAction('EXIT_EDITING');
 export const setItemText = createAction('SET_TEXT');
-export const setDisplayMode = createAction('SET_DISPLAY_MODE');
+export const setInputPriority = createAction('SET_INPUT_PRIORITY');

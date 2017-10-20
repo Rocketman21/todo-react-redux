@@ -215,12 +215,14 @@ input::-webkit-input-placeholder {
 }
 
 .selector-regular, .selector-important, .selector-ultra {
+  min-width: 70px;
   position: relative;
   margin: -33px 10px 0 0;
   z-index: 1;
   float: right;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
+  text-align: right;
   cursor: pointer;
 }
 .selector-regular:after {
