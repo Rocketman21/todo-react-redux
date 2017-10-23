@@ -9,3 +9,5 @@ export const putItemInEditing = createAction('ENTER_EDITING');
 export const removeItemFromEditing = createAction('EXIT_EDITING');
 export const setItemText = createAction('SET_TEXT');
 export const setInputPriority = createAction('SET_INPUT_PRIORITY');
+export const setVisibilityByStatus = createAction('SET_VISIBILITY_BY_STATUS');
+export const setVisibilityByPriority = createAction('SET_VISIBILITY_BY_PRIORITY');

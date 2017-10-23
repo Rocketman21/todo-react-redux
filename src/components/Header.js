@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 
-export const Header = (props) => {
-  const onInputKeyDown = (event) => {
+export class Header extends PureComponent {
+  onInputKeyDown(event) {
     const text = event.target.value.trim();
 
     if (event.keyCode !== 13 || !text.length) return;
 
-    props.addItem(text);
+    this.props.addItem(text);
     event.target.value = '';
   }
 
-  const swithInputPriority = () => {
+  swithInputPriority() {
     let result = '';
 
-    switch(props.inputPriority) {
+    switch(this.props.inputPriority) {
       case 'regular':
         result = 'important';
         break;
@@ -26,25 +26,27 @@ export const Header = (props) => {
       default:
     }
 
-    props.setInputPriority(result);
+    this.props.setInputPriority(result);
   }
 
-  return (
-    <div>
-      <header className="todo-header">
-        <h1>TODO-REACT-REDUX</h1>
-      </header>
-      <div className="input-wrapper todo-shadow">
-        <input 
-          className="todo-input" 
-          placeholder="What needs to be done?" 
-          onKeyDown={(event) => onInputKeyDown(event)} 
-        />
-        <div 
-          className={'selector-' + props.inputPriority}
-          onClick={swithInputPriority}
-        ></div>
+  render() {
+    return (
+      <div>
+        <header className="todo-header">
+          <h1>TODO-REACT-REDUX</h1>
+        </header>
+        <div className="input-wrapper todo-shadow">
+          <input 
+            className="todo-input" 
+            placeholder="What needs to be done?" 
+            onKeyDown={(event) => this.onInputKeyDown(event)} 
+          />
+          <div 
+            className={'selector-' + this.props.inputPriority}
+            onClick={() => this.swithInputPriority()}
+          ></div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

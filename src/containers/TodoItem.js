@@ -19,18 +19,9 @@ class TodoItem extends PureComponent {
     }
   };
 
-  getItemLiClassName(item) {
-    let result = '';
-
-    if (item.isCompleted) result += 'completed';
-    if (item.isInEditing) result += 'editing';
-
-    return result;
-  }
-
   render() {
     return (
-      <li className={this.getItemLiClassName(this.props.item)} 
+      <li
         onDoubleClick={(event) => this.props.putItemInEditing(this.props.item.id)}>
 
         <div className={'priority ' + this.props.item.priority}></div>

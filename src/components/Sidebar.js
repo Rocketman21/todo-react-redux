@@ -17,6 +17,7 @@ class Sidebar extends PureComponent {
     const splitedPath = current.split('/');
 
     splitedPath[1] = to;
+    
     return splitedPath.join('/');
   }
 

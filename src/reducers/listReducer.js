@@ -97,13 +97,25 @@ const listReducer = handleActions(
       ...state,
       inputPriority: action.payload
     }),
+
+    SET_VISIBILITY_BY_STATUS: (state, action) => ({
+      ...state,
+      visibleByStatus: action.payload
+    }),
+    
+    SET_VISIBILITY_BY_PRIORITY: (state, action) => ({
+      ...state,
+      visibleByPriority: action.payload
+    })
   },
   { 
     items: [], 
     lastItemID: 0, 
     active: 0, 
     completed: 0,
-    inputPriority: 'regular'
+    inputPriority: 'regular',
+    visibleByStatus: 'all',
+    visibleByPriority: 'all'
   }
 );
 

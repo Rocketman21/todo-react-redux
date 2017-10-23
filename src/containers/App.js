@@ -33,9 +33,9 @@ class App extends PureComponent {
               this.props.items.length 
                 ? <Sidebar
                     items={this.props.items}
-                    display={this.props.display}
                     active={this.props.active}
                     completed={this.props.completed}
+                    
                     removeCompletedItems={this.props.removeCompletedItems}
                     makeItemActive={this.props.makeItemActive}
                     makeItemCompleted={this.props.makeItemCompleted}
