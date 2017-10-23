@@ -39,14 +39,17 @@ class Main extends PureComponent {
         <ul className="todo-list">
           <Route exact path="/all" render={() => {
             this.props.setVisibilityByStatus('all');
+            this.props.setVisibilityByPriority('all');
             return this.props.items;
           }}/>
           <Route exact path="/active" render={() => {
             this.props.setVisibilityByStatus('active');
+            this.props.setVisibilityByPriority('all');
             return this.props.items;
           }}/>
           <Route exact path="/completed" render={() => {
             this.props.setVisibilityByStatus('completed');
+            this.props.setVisibilityByPriority('all');
             return this.props.items;
           }}/>
 
