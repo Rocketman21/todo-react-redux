@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import getActiveItems from '../selectors/activeCountSelector';
+import getcompletedItems from '../selectors/completedCountSelector';
 
 import '../assets/App.css';
 
@@ -52,8 +54,8 @@ class App extends PureComponent {
 const mapStateToProps = (state) => ({
   items: state.items,
   inputPriority: state.inputPriority,
-  active: state.active,
-  completed: state.completed
+  active: getActiveItems(state),
+  completed: getcompletedItems(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

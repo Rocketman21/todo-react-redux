@@ -6,7 +6,6 @@ const getVisibileByStatus = (state) => state.visibleByStatus;
 const getVisibileByPriority = (state) => state.visibleByPriority;
 const getItems = (state) => state.items;
 
-
 const getVisibleItems = createSelector(
   [getVisibileByStatus, getVisibileByPriority, getItems],
   (visibleByStatus, visibleByPriority, items) => {

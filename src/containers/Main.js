@@ -75,10 +75,7 @@ class Main extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  items: getVisibleItems(state),
-  display: state.display,
-  active: state.active,
-  completed: state.completed
+  items: getVisibleItems(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
